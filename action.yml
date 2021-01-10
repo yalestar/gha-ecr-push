@@ -1,0 +1,14 @@
+name: Explore DEbug
+description: "Greet a mofo"
+author: "octocat@github.com"
+
+inputs:
+  jq_selector:
+    description: fucking yes
+    required: false
+    default: "."
+
+runs:
+  using: docker
+  image: Dockerfile
+

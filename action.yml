@@ -4,7 +4,7 @@ author: "octocat@github.com"
 
 inputs:
   jq_selector:
-    description: fucking yes
+    description: why yes
     required: false
     default: "."
 

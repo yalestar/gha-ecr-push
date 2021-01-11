@@ -6,7 +6,7 @@ IFS=$'\n'
 for v in `env`; do
   PREFIX=$(echo $v| cut -d '_' -f1)
 
-  if [[ $PREFIX == 'GITHUB' ]] || [[ $PREFIX == 'INPUT' ]]; then
+  if [[ $PREFIX == 'INPUT' ]]; then
     echo "$v";
   fi
 done

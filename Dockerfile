@@ -1,5 +1,4 @@
-FROM alpine
-RUN apk add --no-cache jq
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+FROM python:3.6.10-slim
+
+RUN apt-get update && apt-get install -y jq
 

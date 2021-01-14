@@ -51,6 +51,7 @@ jobs:
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: us-west-2
 
+      - run: docker build --tag ypy:latest .
       - name: Push to ECR
         id: ecr-empuje
         # uses: jwalton/gh-ecr-push@v1

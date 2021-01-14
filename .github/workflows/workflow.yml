@@ -52,12 +52,12 @@ jobs:
           region: us-west-1
 
       - name: Push to ECR
-        id: ecr
-        uses: jwalton/gh-ecr-push@v1
-        with:
-          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          region: us-west-2
+        id: ecr-empuje
+        # uses: jwalton/gh-ecr-push@v1
+        # with:
+        #   access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #   secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #   region: us-west-2
         run: |
           docker tag ypy ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1
           docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1

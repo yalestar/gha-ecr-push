@@ -51,7 +51,7 @@ jobs:
           region: us-west-2
           local-image: ypy
           # image: my-image:dev-${{ github.sha }}
-          image: ypy:v1
+          image: ypy:latest
 
 
       # - name: Check out source code

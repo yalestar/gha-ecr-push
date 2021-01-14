@@ -41,7 +41,7 @@ jobs:
       #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
       #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - run: docker build --tag ypy:latest .
+      - run: docker build --tag ypy .
       - name: Push to ECR
         id: ecr
         uses: jwalton/gh-ecr-push@v1
@@ -51,7 +51,7 @@ jobs:
           region: us-west-2
           local-image: ypy
           # image: my-image:dev-${{ github.sha }}
-          image: ypy:latest
+          image: ypy
 
 
       # - name: Check out source code

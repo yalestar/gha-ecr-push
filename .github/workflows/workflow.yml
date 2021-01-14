@@ -41,7 +41,16 @@ jobs:
       #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
       #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - run: docker build --tag ypy .
+      # - run: docker build --tag ypy .
+
+      - name: Login to ECR
+        id: ecr
+        uses: jwalton/gh-ecr-login@v1
+        with:
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: us-west-1
+
       - name: Push to ECR
         id: ecr
         uses: jwalton/gh-ecr-push@v1
@@ -49,20 +58,10 @@ jobs:
           access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           region: us-west-2
-          local-image: ypy
-          # image: my-image:dev-${{ github.sha }}
-          image: ypy
+        run: |
+          docker tag ypy ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1
+          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1
 
-
-      # - name: Check out source code
-      #   uses: actions/checkout@v2
-
-      # - name: Tell secret
-      #   env:
-      #     MY_VAR: Hi there! My name is
-      #     FIRST_NAME: Mona
-      #     MIDDLE_NAME: The
-      #     LAST_NAME: Octocat
-      #     FEELZ: ${{ secrets.FEELINGS }}
-      #   run: |
-      #     echo $MY_VAR $FIRST_NAME $MIDDLE_NAME $LAST_NAME $FEELZ.
+          # local-image: ypy
+          # # image: my-image:dev-${{ github.sha }}
+          # image: ypy

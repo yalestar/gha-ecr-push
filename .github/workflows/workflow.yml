@@ -29,30 +29,29 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          # ECR_REGISTRY: 009214174302.dkr.ecr.us-west-2.amazonaws.com
-          ECR_REGISTRY: 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          # echo "${{ steps.login-ecr.outputs.registry }}"
-          # ls -la
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+      # - name: Build, tag, and push image to Amazon ECR
+      #   env:
+      #     # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #     # ECR_REGISTRY: 009214174302.dkr.ecr.us-west-2.amazonaws.com
+      #     ECR_REGISTRY: 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy
+      #     IMAGE_TAG: ${{ github.sha }}
+      #   run: |
+      #     # echo "${{ steps.login-ecr.outputs.registry }}"
+      #     # ls -la
+      #     docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+      #     docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      # - run: docker build --tag ypy:latest .
-
-      # - name: Push to ECR
-      #   id: ecr
-      #   uses: jwalton/gh-ecr-push@v1
-      #   with:
-      #     access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     region: us-west-2
-      #     local-image: ypy
-      #     # image: my-image:dev-${{ github.sha }}
-      #     image: ypy:v1
+      - run: docker build --tag ypy:latest .
+      - name: Push to ECR
+        id: ecr
+        uses: jwalton/gh-ecr-push@v1
+        with:
+          access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          region: us-west-2
+          local-image: ypy
+          # image: my-image:dev-${{ github.sha }}
+          image: ypy:v1
 
 
       # - name: Check out source code

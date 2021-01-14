@@ -61,7 +61,7 @@ jobs:
         #   region: us-west-2
         run: |
           docker tag ypy:latest 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:latest
-          docker push 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:latest
+          # docker push 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:latest
 
           # local-image: ypy
           # # image: my-image:dev-${{ github.sha }}

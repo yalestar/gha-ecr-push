@@ -1,7 +1,5 @@
 name: dpod-workflow
 
-env: {}
-
 on:
   push:
     branches-ignore:
@@ -37,8 +35,7 @@ jobs:
           ECR_REPOSITORY: ypy
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          pwd
-          ls
+          ls -la
           # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           # docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 

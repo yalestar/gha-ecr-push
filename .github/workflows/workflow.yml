@@ -1,7 +1,5 @@
 name: dpod-workflow
 
-env: {}
-
 on:
   push:
     branches-ignore:

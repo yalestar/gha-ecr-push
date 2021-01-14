@@ -59,8 +59,8 @@ jobs:
         #   secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         #   region: us-west-2
         run: |
-          docker tag ypy:v1 ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1
-          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:v1
+          docker tag ypy:latest ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:latest
+          docker push ${{ steps.ecr.outputs.account }}.dkr.ecr.us-west-2.amazonaws.com/ypy:latest
 
           # local-image: ypy
           # # image: my-image:dev-${{ github.sha }}

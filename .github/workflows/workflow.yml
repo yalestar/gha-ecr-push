@@ -10,6 +10,22 @@ on:
       - main
 
 jobs:
+  be-getting-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read secrets from AWS Secrets Manager into environment variables
+        uses: action-factory/aws-secrets-manager-action@v1.0.0
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+          secrets: |
+            prod/lunger/dunger
+          parse-json: true
+
+      - name: Check if env variable is set after fetching secrets
+        run: if [ -z ${_PROD_LUNGER_DUNGER+x} ]; then echo "_PROD_LUNGER_DUNGER is unset"; else echo "_PROD_LUNGER_DUNGER is set to '$_PROD_LUNGER_DUNGER'"; fi
+
   aws-ecr-config:
     runs-on: ubuntu-latest
     steps:
@@ -35,6 +51,5 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
 
         run: |
-          echo "${{ steps.ecr-login.outputs.registry }}"
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

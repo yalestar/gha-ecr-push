@@ -25,19 +25,14 @@ jobs:
           aws-region: us-west-2
 
       - name: Amazon ECR Login
-        id: login-ecr
+        id: ecr-login
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: outputtts
-        id: outputts
-        run:
-          echo "--------------------------------:::::::::::::::::::"
-          echo "registry is ${{ steps.login-ecr.outputs.registry }}"
-      # - name: Build tag and push image to Amazon ECR
-      #   run: |
-      #     echo "${{ steps.login-ecr.outputs.registry }}"
-      #     docker build -t 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:v3 .
-      #     docker push 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:v3
+      - name: Build tag and push image to Amazon ECR
+        run: |
+          echo "${{ steps.ecr-login.outputs.registry }}"
+          docker build -t 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:v3 .
+          docker push 009214174302.dkr.ecr.us-west-2.amazonaws.com/ypy:v3
       # - name: Build, tag, and push image to Amazon ECR
         # env:
           # ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
